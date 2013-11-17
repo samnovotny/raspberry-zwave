@@ -1,5 +1,5 @@
 //
-//  SNAppDelegate.h
+//  SNZdevice.h
 //  zwave
 //
 //  Created by sam on 16/11/2013.
@@ -18,17 +18,19 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
-@interface SNAppDelegate : NSObject <NSApplicationDelegate> {
-    __weak NSTextField *URLString;
-    __weak NSTextField *portString;
-    __unsafe_unretained NSTextView *respWindow;
-    __weak NSTextField *commandString;
-    __weak NSTextField *timer;
-}
+#define RAZNULL     @"null"     // OK resposnes from Razberry
+#define TIMEOUT     5.0         // How long we are prepared to wait for the Razberry to respond
 
-@property (assign) IBOutlet NSWindow *window;
+@interface SNZdevice : NSObject
+
+@property (strong, nonatomic) NSString *urlString;
+@property (strong, nonatomic) NSString *portString;
+@property (assign) NSTimeInterval lastCallTime;
+
+- (id) initWithURL:(NSString *)urlStr port:(NSString*)portStr;
+- (NSDictionary *) sendRazberryCommand:(NSString *)command;
 
 @end
 
